@@ -1,0 +1,9 @@
+{
+  "name": "backend-course",
+  "version": "1.0.0",
+  "description": "A complete backend course containing everything to go in depth of backend.",
+  "main": "index.js",
+  "author": "Abhishek Kumar",
+  "license": "MIT",
+  "private": false
+}
