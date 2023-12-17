@@ -2,8 +2,25 @@
   "name": "backend-course",
   "version": "1.0.0",
   "description": "A complete backend course containing everything to go in depth of backend.",
+  "type": "module",
   "main": "index.js",
   "author": "Abhishek Kumar",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "keywords": [
+    "backend",
+    "nodejs",
+    "expressjs",
+    "mongodb",
+    "mongoose",
+    "jwt"
+  ],
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "prettier": "^3.1.1"
+  }
 }
