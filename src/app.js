@@ -2,6 +2,9 @@ import express from "express"
 import cookieParser from "cookie-parser"
 import cors from "cors"
 
+// routes
+import userRouter from "./routes/user.routes.js"
+
 const app = express()
 
 // Setting up the middlewares
@@ -13,5 +16,10 @@ app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true
 }))
+
+
+
+// routes decalration
+app.use("/api/v1/users", userRouter)
 
 export default app

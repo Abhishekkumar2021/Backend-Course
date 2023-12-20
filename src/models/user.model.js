@@ -57,50 +57,45 @@ userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
 
     // hash the password
-    this.password = bcrypt.hash(this.password, 12);
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
 
     // go to the next middleware
     next();
 });
 
 // Methods
-userSchema.methods = {
-    // Spread the default methods
-    ...userSchema.methods,
+userSchema.methods.checkPassword = async function (plainPassword) {
+    // By default the password field is not returned when fetching a user
+    // We need to explicitly select it
+    return bcrypt.compare(plainPassword, this.password);
+}
 
-    // check if password is correct
-    async checkPassword(plainPassword) {
-        return await bcrypt.compare(plainPassword, this.password);
-    },
+userSchema.methods.generateAccessToken = function () {
+    return jwt.sign(
+        {
+            _id: this._id,
+            username: this.username,
+            email: this.email,
+            fullname: this.fullname,
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRE
+        }
+    );
+}
 
-    // generate access token
-    generateAccessToken() {
-        return jwt.sign(
-            { 
-                _id: this._id,
-                username: this.username,
-                email: this.email,
-                fullname: this.fullname,
-            }, 
-            process.env.ACCESS_TOKEN_SECRET, 
-            { 
-                expiresIn: process.env.ACCESS_TOKEN_EXPIRE
-            }
-        );
-    },
-
-    // generate refresh token
-    generateRefreshToken() {
-        return jwt.sign(
-            { 
-                _id: this._id,
-            }, 
-            process.env.REFRESH_TOKEN_SECRET, 
-            { 
-                expiresIn: process.env.REFRESH_TOKEN_EXPIRE
-            }
-        );
-    }
+userSchema.methods.generateRefreshToken = function () {
+    return jwt.sign(
+        {
+            _id: this._id,
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        {
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRE
+        }
+    );
 }
 
 const User = mongoose.model("User", userSchema);

@@ -1,6 +1,7 @@
 import dotenv from "dotenv"
 import connectToDatabase from "./db/index.js"
 import app from "./app.js"
+import { setupCloudinary } from "./utils/cloudinary.js"
 
 dotenv.config()
 
@@ -10,11 +11,12 @@ const PORT = process.env.PORT || 5000
 const connectAndStart = async () => {
     try {
         await connectToDatabase()
+        await setupCloudinary()
         app.listen(PORT, () => {
-            console.log(`Server started on port ${PORT}`)
+            console.log(`You can access the server at http://localhost:${PORT}`)
         })
     } catch (error) {
-        console.error("Error: ", error)
+        console.error(error)
         process.exit(1)
     }
 }
