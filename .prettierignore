@@ -3,3 +3,6 @@
 /.vscode
 /node_modules
 ./dist
+README.md
+package.json
+.eslintrc.json
