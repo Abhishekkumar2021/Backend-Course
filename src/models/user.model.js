@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import process from 'process';
 
 const userSchema = mongoose.Schema(
     {
@@ -64,7 +63,7 @@ userSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, salt);
 
     // go to the next middleware
-    next();
+    return next();
 });
 
 // Methods

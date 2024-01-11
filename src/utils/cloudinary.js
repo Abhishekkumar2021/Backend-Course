@@ -1,6 +1,5 @@
 import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs';
-import process from 'process';
 
 export const setupCloudinary = async () => {
     cloudinary.config({

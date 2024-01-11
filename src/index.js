@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
-import process from 'process';
 import connectToDatabase from './db/index.js';
 import app from './app.js';
 import { setupCloudinary } from './utils/cloudinary.js';
+import { createTransporter, sendMail } from './utils/sendMail.js';
 
 dotenv.config();
 
@@ -13,6 +13,13 @@ const connectAndStart = async () => {
     try {
         await connectToDatabase();
         await setupCloudinary();
+        const transporter = await createTransporter();
+        await sendMail(
+            transporter,
+            'tangocharlieandme@gmail.com',
+            'Welcome to our website',
+            '<h1>Hello world</h1>'
+        );
         app.listen(PORT, () => {
             console.log(
                 `You can access the server at http://localhost:${PORT}`
@@ -20,7 +27,6 @@ const connectAndStart = async () => {
         });
     } catch (error) {
         console.error(error);
-        process.exit(1);
     }
 };
 

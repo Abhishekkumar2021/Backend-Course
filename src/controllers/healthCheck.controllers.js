@@ -1,5 +1,5 @@
-import TryCatchHandler from '../utils/TryCatchHandler';
-import APIResponse from '../utils/APIResponse';
+import TryCatchHandler from '../utils/TryCatchHandler.js';
+import APIResponse from '../utils/APIResponse.js';
 
 const healthCheck = TryCatchHandler(async (req, res) => {
     const response = new APIResponse(200, 'Health check successful', {});

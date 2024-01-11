@@ -207,7 +207,7 @@ const changePassword = TryCatchHandler(async (req, res) => {
 // Get current user
 const getCurrentUser = TryCatchHandler(async (req, res) => {
     // Get the user
-    const user = req.user;
+    const { user } = req;
 
     // Send the response
     const apiResponse = new APIResponse(
@@ -225,7 +225,7 @@ const getCurrentUser = TryCatchHandler(async (req, res) => {
 // Update profile
 const updateProfile = TryCatchHandler(async (req, res) => {
     // Get the user
-    const user = req.user;
+    const { user } = req;
 
     // Get the required fields
     const { fullname, username, email } = req.body;
@@ -252,7 +252,7 @@ const updateProfile = TryCatchHandler(async (req, res) => {
 // Update avatar
 const updateAvatar = TryCatchHandler(async (req, res) => {
     // Get the user
-    const user = req.user;
+    const { user } = req;
 
     // Get the avatar
     const avatarPath = req.file?.avatar || '';
@@ -278,7 +278,7 @@ const updateAvatar = TryCatchHandler(async (req, res) => {
 // Update cover image
 const updateCoverImage = TryCatchHandler(async (req, res) => {
     // Get the user
-    const user = req.user;
+    const { user } = req;
 
     // Get the cover image
     const coverImagePath = req.file?.coverImage || '';

@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import process from 'process';
 import User from '../models/user.model.js';
 import APIError from '../utils/APIError.js';
 import TryCatchHandler from '../utils/TryCatchHandler.js';
